@@ -4,12 +4,12 @@ FROM ubuntu:latest
 ARG KCOV_GIT_REF
 
 RUN apt-get update
-RUN apt-get install -y software-properties-common
+RUN apt-get install -y python-software-properties
 RUN apt-add-repository ppa:fish-shell/release-2
 RUN apt-get update
+RUN apt-get install -y --fix-missing pkg-config
 RUN apt-get install -y fish \
-    git cmake cmake-data binutils-dev libiberty-dev \
-    g++ python-minimal \
+    git cmake cmake-data binutils-dev libiberty-dev g++ \
     libdw-dev libelf-dev \
     wget curl libcurl4-openssl-dev zlib1g zlib1g-dev
 
