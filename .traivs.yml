@@ -1,0 +1,17 @@
+sudo: false
+
+services:
+  - docker
+
+script:
+  - docker build -t redtankd/rust rust/
+  - docker run redtankd/rust kcov
+  - docker run redtankd/rust cargo --version
+  - docker run redtankd/rust rustc --version
+  - docker run redtankd/rust cargo kcov
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push redtankd/rust;
+    fi
