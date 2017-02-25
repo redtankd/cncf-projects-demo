@@ -3,6 +3,7 @@ FROM ubuntu:latest
 # kcov's git commit
 ARG KCOV_GIT_REF
 
+RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN apt-add-repository ppa:fish-shell/release-2
 RUN apt-get update
