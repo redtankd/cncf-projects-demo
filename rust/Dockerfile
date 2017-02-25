@@ -16,12 +16,12 @@ COPY config.fish /root/.config/fish/config.fish
 ENV SRC_DIR_KCOV=~/kcov-src \
     URL_GIT_KCOV=https://github.com/SimonKagstrom/kcov.git
 
-RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV && \
-    cd $SRC_DIR_KCOV && \
+RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV; \
+    cd $SRC_DIR_KCOV; \
     # default to latest tagged version
-    DEFAULT_KCOV_GIT_REF=$(git tag --list | grep "^v[0-9]\+$" | sort -V | tail --lines 1) && \
-    KCOV_GIT_REF=${KCOV_GIT_REF:-$DEFAULT_KCOV_GIT_REF} && \
-    git reset --hard $KCOV_GIT_REF && \
+    DEFAULT_KCOV_GIT_REF=$(git tag --list | grep "^v[0-9]\+$" | sort -V | tail --lines 1); \
+    KCOV_GIT_REF=${KCOV_GIT_REF:-$DEFAULT_KCOV_GIT_REF}; \
+    git reset --hard $KCOV_GIT_REF; \
 
     cd $SRC_DIR_KCOV && \
     mkdir build && \
