@@ -11,7 +11,7 @@ RUN apt-get update && \
     wget curl libcurl4-openssl-dev zlib1g zlib1g-dev
 
 # install kcov
-ENV SRC_DIR_KCOV=~/kcov-src \
+ENV SRC_DIR_KCOV=~/dev/kcov-src \
     URL_GIT_KCOV=https://github.com/SimonKagstrom/kcov.git
 
 RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV; \
@@ -31,12 +31,13 @@ RUN cd $SRC_DIR_KCOV && \
 # install rust
 
 ENV RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static \
-    RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+    RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup \
+    PATH=/root/.cargo/bin:$PATH
 
 RUN curl https://sh.rustup.rs -sSf | \
 		sh -s -- --default-toolchain stable -y
 
 RUN cargo install cargo-kcov
 
-ENTRYPOINT ["/bin/fish"]
+ENTRYPOINT ["/bin/bash"]
 CMD [""]
