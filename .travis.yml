@@ -5,10 +5,10 @@ services:
 
 script:
   - docker build -t redtankd/rust rust/
-  # - docker run redtankd/rust kcov
-  # - docker run redtankd/rust cargo --version
-  # - docker run redtankd/rust rustc --version
-  # - docker run redtankd/rust cargo kcov
+  - docker run --rm redtankd/rust kcov --version
+  - docker run --rm redtankd/rust cargo --version
+  - docker run --rm redtankd/rust rustc --version
+  - docker run --rm redtankd/rust bash --version
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then

@@ -38,7 +38,8 @@ ENV RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static \
     PATH=$USERHOME/.cargo/bin:$PATH
 
 RUN curl https://sh.rustup.rs -sSf | \
-		sh -s -- --default-toolchain stable -y
+		sh -s -- --default-toolchain stable -y && \
+	rustup completions bash > /etc/bash_completion.d/rustup
 
 COPY cargo-config $USERHOME/.cargo/config
 
@@ -46,5 +47,4 @@ RUN cargo install cargo-kcov
 
 WORKDIR $USERHOME/dev
 
-ENTRYPOINT ["/bin/bash"]
-CMD [""]
+ENTRYPOINT [""]
