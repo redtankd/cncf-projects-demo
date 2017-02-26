@@ -46,5 +46,3 @@ COPY cargo-config $USERHOME/.cargo/config
 RUN cargo install cargo-kcov
 
 WORKDIR $USERHOME/dev
-
-ENTRYPOINT [""]
