@@ -42,9 +42,7 @@ ARG SOURCE_CRATES_IO=https://mirrors.ustc.edu.cn/crates.io-index
 
 COPY cargo/config $USER_HOME/.cargo/config
 RUN sed -i "s%https://mirrors.ustc.edu.cn/crates.io-index%$SOURCE_CRATES_IO%" $USER_HOME/.cargo/config
-RUN echo echo "------------------------" && echo ".cargo/config:"
 RUN cat $USER_HOME/.cargo/config
-RUN echo "------------------------"
 
 ARG RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
 
@@ -53,8 +51,9 @@ RUN echo >> $USER_HOME/.config/fish/config.fish
 RUN cat $USER_HOME/.config/fish/config.fish.rust >> $USER_HOME/.config/fish/config.fish
 RUN rm $USER_HOME/.config/fish/config.fish.rust
 RUN sed -i "s%https://mirrors.ustc.edu.cn/rust-static%$RUSTUP_DIST_SERVER%" $USER_HOME/.config/fish/config.fish
-RUN echo echo "------------------------" && echo "config.fish:"
 RUN cat $USER_HOME/.config/fish/config.fish
-RUN echo "------------------------"
+
+RUN env
 
 RUN $USER_HOME/.cargo/bin/cargo install cargo-kcov
+
