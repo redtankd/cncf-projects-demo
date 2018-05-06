@@ -2,9 +2,6 @@ FROM redtankd/base
 
 ARG USER_HOME=/root
 
-# expected kcov's git commit
-ARG KCOV_GIT_REF
-
 # install dependecies
 
 RUN apt-get update && \
@@ -16,8 +13,11 @@ RUN apt-get update && \
 
 # install kcov
 
-ENV SRC_DIR_KCOV=$USER_HOME/dev/kcov-src \
-    URL_GIT_KCOV=https://github.com/SimonKagstrom/kcov.git
+# expected kcov's git commit
+ARG KCOV_GIT_REF
+
+ARG SRC_DIR_KCOV=$USER_HOME/dev/kcov-src 
+ARG URL_GIT_KCOV=https://github.com/SimonKagstrom/kcov.git
 
 RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV; \
     cd $SRC_DIR_KCOV; \
@@ -35,18 +35,16 @@ RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV; \
 
 # install rust
 
-ENV RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static \
-    RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup \
-    PATH=$PATH:$USER_HOME/.cargo/bin
+ARG RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static 
 
-RUN curl https://sh.rustup.rs -sSf | \
-		sh -s -- --default-toolchain stable -y && \
-	rustup completions bash > /etc/bash_completion.d/rustup
+RUN curl https://sh.rustup.rs -sSf | sh
+RUN rustup toolchain install nightly
+RUN rustup toolchain install stable 
 
 COPY cargo/config $USER_HOME/.cargo/config
 COPY config/fish/config.fish $USER_HOME/.config/fish/config.fish.rust
-
+RUN echo >> $USER_HOME/.config/fish/config.fish
 RUN cat $USER_HOME/.config/fish/config.fish.rust >> $USER_HOME/.config/fish/config.fish
 RUN rm $USER_HOME/.config/fish/config.fish.rust
 
-RUN cargo install cargo-kcov
+RUN $USER_HOME/.cargo/bin/cargo install cargo-kcov

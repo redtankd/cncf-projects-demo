@@ -10,8 +10,11 @@ script:
   - docker run --rm redtankd/base vim --version
   - docker build -t redtankd/rust rust/
   - docker run --rm redtankd/rust kcov --version
-  - docker run --rm redtankd/rust cargo --version
-  - docker run --rm redtankd/rust rustc --version
+  - docker run --rm redtankd/rust rustup run stable cargo --version
+  - docker run --rm redtankd/rust rustup run nightly cargo --version
+  - docker run --rm redtankd/rust rustup run stable rustc --version
+  - docker run --rm redtankd/rust rustup run nightly rustc --version
+  - docker run --rm redtankd/rust cargo kcov --version
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
