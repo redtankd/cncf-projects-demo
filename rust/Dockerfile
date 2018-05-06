@@ -37,9 +37,8 @@ RUN git clone $URL_GIT_KCOV $SRC_DIR_KCOV; \
 
 ARG RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static 
 
-RUN curl https://sh.rustup.rs -sSf | sh
-RUN rustup toolchain install nightly
-RUN rustup toolchain install stable 
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+RUN $USER_HOME/.cargo/bin/rustup toolchain install nightly
 
 COPY cargo/config $USER_HOME/.cargo/config
 COPY config/fish/config.fish $USER_HOME/.config/fish/config.fish.rust
