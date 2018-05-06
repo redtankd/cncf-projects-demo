@@ -20,6 +20,8 @@ b = "build"
 t = "test"
 r = "run"
 
+tb = "test --bin"
+
 rb = "run --bin"
 rr = "run --release"
 

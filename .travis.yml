@@ -8,7 +8,7 @@ script:
   - docker run --rm redtankd/base fish --version
   - docker run --rm redtankd/base git --version
   - docker run --rm redtankd/base vim --version
-  - docker build -t redtankd/rust --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER rust/
+  - docker build -t redtankd/rust --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO rust/
   - docker run --rm redtankd/rust kcov --version
   - docker run --rm redtankd/rust fish -c "rustup run stable cargo --version"
   - docker run --rm redtankd/rust fish -c "rustup run nightly cargo --version"
