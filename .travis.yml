@@ -4,11 +4,14 @@ services:
   - docker
 
 script:
+  - docker build -t redtankd/base base/
+  - docker run --rm redtankd/base fish --version
+  - docker run --rm redtankd/base git --version
+  - docker run --rm redtankd/base vim --version
   - docker build -t redtankd/rust rust/
   - docker run --rm redtankd/rust kcov --version
   - docker run --rm redtankd/rust cargo --version
   - docker run --rm redtankd/rust rustc --version
-  - docker run --rm redtankd/rust bash --version
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
