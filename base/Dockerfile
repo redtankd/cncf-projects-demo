@@ -1,4 +1,4 @@
-ARG LINUX_VERSION=ubuntu:latest
+ARG LINUX_VERSION=alpine:latest
 FROM ${LINUX_VERSION}
 
 ARG USER_HOME=/root
