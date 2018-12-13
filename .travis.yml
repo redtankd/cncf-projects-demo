@@ -4,6 +4,7 @@ services:
   - docker
 
 script:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - ./cp-images.sh linkerd2/images.properties
   # - docker build -t redtankd/base base/
   # - docker run --rm redtankd/base fish --version
