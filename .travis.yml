@@ -4,7 +4,7 @@ services:
   - docker
 
 script:
-  - cp-images.sh linkerd2/images.properties
+  - ./cp-images.sh linkerd2/images.properties
   # - docker build -t redtankd/base base/
   # - docker run --rm redtankd/base fish --version
   # - docker run --rm redtankd/base git --version
