@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 
 file=${1-images.properties}
 
