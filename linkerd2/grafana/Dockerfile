@@ -1,1 +1,1 @@
-gcr.io/linkerd-io/grafana:stable-2.1.0
+FROM gcr.io/linkerd-io/grafana:stable-2.1.0
