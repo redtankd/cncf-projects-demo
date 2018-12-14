@@ -3,23 +3,26 @@ sudo: false
 services:
   - docker
 
-script:
+before_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+script:
+  # copy images from gcr.io to hub.docker.com
   - ./cp-images.sh linkerd2/images.properties
-  # - docker build -t redtankd/base base/
-  # - docker run --rm redtankd/base fish --version
-  # - docker run --rm redtankd/base git --version
-  # - docker run --rm redtankd/base vim --version
-  # - docker build -t redtankd/rust --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO rust/
-  # - docker run --rm redtankd/rust kcov --version
-  # - docker run --rm redtankd/rust fish -c "rustup run stable cargo --version"
-  # - docker run --rm redtankd/rust fish -c "rustup run nightly cargo --version"
-  # - docker run --rm redtankd/rust fish -c "rustup run stable rustc --version"
-  # - docker run --rm redtankd/rust fish -c "rustup run nightly rustc --version"
-  # - docker run --rm redtankd/rust fish -c "cargo kcov --version"
+
+  - docker build -t redtankd/base base/
+  - docker run --rm redtankd/base fish --version
+  - docker run --rm redtankd/base git --version
+  - docker run --rm redtankd/base vim --version
+  - docker build -t redtankd/rust --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO rust/
+  - docker run --rm redtankd/rust kcov --version
+  - docker run --rm redtankd/rust fish -c "rustup run stable cargo --version"
+  - docker run --rm redtankd/rust fish -c "rustup run nightly cargo --version"
+  - docker run --rm redtankd/rust fish -c "rustup run stable rustc --version"
+  - docker run --rm redtankd/rust fish -c "rustup run nightly rustc --version"
+  - docker run --rm redtankd/rust fish -c "cargo kcov --version"
 
 after_success:
-  # - if [ "$TRAVIS_BRANCH" == "master" ]; then
-  #     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  #     docker push redtankd/rust;
-  #   fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker push redtankd/rust;
+    fi
