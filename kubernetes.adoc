@@ -1,0 +1,52 @@
+= A Demo for Kubernetes
+
+== Kubernetes' Architecture
+
+Refering https://kubernetes.io/docs/concepts/overview/components/
+
+=== Master Components
+
+* kube-apiserver
+* etcd
+* kube-scheduler
+* kube-controller-manager
+* cloud-controller-manager
+
+=== Node Components
+
+* kubelet
+* kube-proxy
+* Container Runtime
+
+=== Addon
+
+* DNS
+* Web UI (Dashboard)
+* Container Resource Monitoring
+* Cluster-level Logging
+
+== Installing Kubernetes Client
+
+For Mac OS
+
+```
+brew install kubectl
+```
+
+== Installing Kubernetes Cluster within Docker in China
+
+We need a mirror repository for Kubernetes.
+
+```
+git clone https://github.com/AliyunContainerService/k8s-for-docker-desktop
+cd k8s-for-docker-desktop
+bash load_images.sh
+```
+
+Following `https://github.com/AliyunContainerService/k8s-for-docker-desktop`
+
+Refering https://docs.docker.com/docker-for-mac/#kubernetes and https://docs.docker.com/docker-for-mac/kubernetes/
+
+== Reference
+
+* About namespace: https://vitalflux.com/kubernetes-create-delete-namespaces-namespaces/

@@ -1,0 +1,23 @@
+= A Demo for Linkerd 2
+
+== Installing Linkerd 2 In China
+
+Linkerd's images are in grc.io, so I made mirror repository myself.
+
+Every time this repository is pushed, Linkerd 2's images are copied to hub.docker.com through Travis CI.
+
+This is from link:.travis.yml[]:
+
+```
+./cp-images.sh linkerd2/images.properties
+```
+
+Linkerd's version is in link:linkerd2/images.properties[].
+
+Before Installing Linkerd 2, you need pull images.
+
+```
+./pull-images.sh linkerd2/images.properties
+```
+
+Then following https://linkerd.io/2/getting-started/ and `cp ~/.linkerd2/bin/linkerd /usr/local/bin/`

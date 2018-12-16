@@ -1,6 +1,6 @@
-# dockerfiles
+= A Demo for Docker
 
-## China's mirror for docker
+== China's mirror for docker
 
 ~/.docker/daemon.json
 
@@ -14,7 +14,7 @@
 }
 ```
 
-## base image
+== base image
 
 `docker build -t redtankd/base base/`
 
@@ -22,8 +22,12 @@
 
 `d start -i base`
 
-## rust image
+Dockerfile.alpine is for Alpine distribution.
+
+== rust image
 
 `docker build -t redtankd/rust rust/`
 
 `docker run -it --name rust -h rust --security-opt seccomp=unconfined -v ~/dev/git:/root/dev/git redtankd/rust fish`
+
+Dockerfile.alpine doesn't work now.
