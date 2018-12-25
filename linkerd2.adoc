@@ -1,5 +1,21 @@
 = A Demo for Linkerd 2
 
+== Linkerd 2's Architecture
+
+Referring https://linkerd.io/2/architecture/
+
+=== Control Plane
+
+* Controller: public-api, proxy-api, destination, tap
+* Web
+* Prometheus
+* Grafana
+
+=== Data Plane
+
+* Proxy
+* Application
+
 == Installing Linkerd 2 In China
 
 Linkerd's images are in grc.io, so I made mirror repository myself.

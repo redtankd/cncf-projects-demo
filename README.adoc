@@ -4,8 +4,6 @@
 * link:kubernetes.adoc[Kubenetes]
 * link:linkerd2.adoc[Linkderd 2]
 
-CNCF is The Cloud Native Computing Foundation, which builds sustainable ecosystems and fosters
-a community around a constellation of high-quality projects that orchestrate
-containers as part of a microservices architecture.
+CNCF is The Cloud Native Computing Foundation, which builds sustainable ecosystems and fosters a community around a constellation of high-quality projects that orchestrate containers as part of a microservices architecture.
 
 Notice: Docker is not a CCF project.

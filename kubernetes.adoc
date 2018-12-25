@@ -2,7 +2,7 @@
 
 == Kubernetes' Architecture
 
-Refering https://kubernetes.io/docs/concepts/overview/components/
+Referring https://kubernetes.io/docs/concepts/overview/components/
 
 === Master Components
 
@@ -45,7 +45,7 @@ bash load_images.sh
 
 Following `https://github.com/AliyunContainerService/k8s-for-docker-desktop`
 
-Refering https://docs.docker.com/docker-for-mac/#kubernetes and https://docs.docker.com/docker-for-mac/kubernetes/
+Referring https://docs.docker.com/docker-for-mac/#kubernetes and https://docs.docker.com/docker-for-mac/kubernetes/
 
 == Reference
 

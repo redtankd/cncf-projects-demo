@@ -16,18 +16,24 @@
 
 == base image
 
-`docker build -t redtankd/base base/`
+```shell
+cd docker/base
+docker build -t redtankd/alpine-base -f alpine/Dockerfile .
 
-`docker run -it --name base -h base redtankd/base fish`
+docker run -it --name base -h base redtankd/alpine-base fish
 
-`d start -i base`
+docker start -i base
+```
 
-Dockerfile.alpine is for Alpine distribution.
+ubuntu/Dockerfile is for Ubuntu distribution. alpine/Dockerfile is for Alpine distribution.
 
 == rust image
 
-`docker build -t redtankd/rust rust/`
+```
+cd docker/rust
+docker build -t redtankd/ubuntu-rust -f ubuntu/Dockerfile .
 
-`docker run -it --name rust -h rust --security-opt seccomp=unconfined -v ~/dev/git:/root/dev/git redtankd/rust fish`
+docker run -it --name rust -h rust --security-opt seccomp=unconfined -v ~/dev/git:/root/dev/git redtankd/ubuntu-rust fish
+```
 
-Dockerfile.alpine doesn't work now.
+Dockerfile for Alpine doesn't work now.
