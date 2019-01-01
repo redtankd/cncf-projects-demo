@@ -1,0 +1,52 @@
+# the reference:
+# https://kubernetes.io/docs/concepts/services-networking/service/
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#service-v1-core
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-sub-service
+  namespace: demo
+  labels:
+    app: hello-sub-service
+spec:
+  selector:
+    app: hello-sub-service   # taget pods' label to match
+  type: ClusterIP            # The service is only reachable from within the cluster. This is the default ServiceType.
+  ports:
+    - port: 8000             # the service's incoming port
+      targetPort: hello-port # or the actual port number 8000. The targets are maybe pods or external services.
+      name: hello-port
+---
+# the reference:
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#deployment-v1-apps
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-sub-service
+  namespace: demo
+  labels:
+    app: hello-sub-service
+spec:
+  selector:
+    matchLabels:
+      app: hello-sub-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-sub-service
+    spec:
+      containers:
+        - name: hello-sub-service
+          image: redtankd/hello-sub-service:0.0.1
+          ports:
+            - containerPort: 8000
+              name: hello-port
+          readinessProbe:
+            httpGet:
+              path: /hello/abc
+              port: hello-port
+      # initContainers:
+      #   - name: init-config-server
+      #     image: byrnedo/alpine-curl
+      #     command: ['sh', '-c', 'until [ "200" -eq $(curl --write-out %{http_code} --silent --output /dev/null http://config-server:8888/actuator/info) ];  do echo waiting for config-server; sleep 2; done']

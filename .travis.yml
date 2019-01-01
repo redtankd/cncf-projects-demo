@@ -8,7 +8,7 @@ before_script:
 
 script:
   # copy images from gcr.io to hub.docker.com
-  - ./cp-images.sh linkerd2/images.properties
+  - images/cp-images.sh images/images.properties
 
   - cd $TRAVIS_BUILD_DIR/docker/base
   # Path outside the build context is forbidden, so the path to Dockerfile is providen.

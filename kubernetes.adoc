@@ -1,4 +1,4 @@
-= A Demo for Kubernetes
+= Installing Kubernetes
 
 == Kubernetes' Architecture
 

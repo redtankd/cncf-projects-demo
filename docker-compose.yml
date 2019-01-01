@@ -1,0 +1,31 @@
+# the reference: 
+# https://docs.docker.com/compose/compose-file/
+version: "3"
+
+services:
+  
+  hello-service:
+    build: 
+      context: .
+      dockerfile: ./demo-app/hello-service/Dockerfile
+      args: 
+        APP_FILE: "./target/x86_64-unknown-linux-musl/debug/hello-service"
+    image: redtankd/hello-service:0.0.1
+    ports:
+      - "8000:8000"
+    environment:
+      - HELLO_SUB_SERVICE_HOST=hello-sub-service
+      - HELLO_SUB_SERVICE_PORT=8000
+  
+  # the service's name is resolved when hello-service calling the service with url.
+  hello-sub-service:
+    build: 
+      context: .
+      dockerfile: ./demo-app/hello-sub-service/Dockerfile
+      args: 
+        APP_FILE: "./target/x86_64-unknown-linux-musl/debug/hello-sub-service"
+    image: redtankd/hello-sub-service:0.0.1
+
+# the default network is "kubernetes_default"
+#networks:
+  #kubernetes_default:

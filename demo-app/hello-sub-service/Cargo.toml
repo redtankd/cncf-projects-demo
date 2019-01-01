@@ -1,0 +1,9 @@
+[package]
+name = "hello-sub-service"
+version = "0.1.0"
+authors = ["redtankd <redtankd@qq.com>"]
+edition = "2018"
+
+[dependencies]
+rocket = "0.4.0"
+hostname = "0.1"

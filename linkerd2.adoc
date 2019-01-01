@@ -1,4 +1,4 @@
-= A Demo for Linkerd 2
+= Installing Linkerd 2
 
 == Linkerd 2's Architecture
 
@@ -25,15 +25,15 @@ Every time this repository is pushed, Linkerd 2's images are copied to hub.docke
 This is from link:.travis.yml[]:
 
 ```
-./cp-images.sh linkerd2/images.properties
+images/cp-images.sh images/images.properties
 ```
 
-Linkerd's version is in link:linkerd2/images.properties[].
+Linkerd's version is in link:images/images.properties[].
 
 Before Installing Linkerd 2, you need pull images.
 
 ```
-./pull-images.sh linkerd2/images.properties
+images/pull-images.sh images/images.properties
 ```
 
 Then following https://linkerd.io/2/getting-started/ and `cp ~/.linkerd2/bin/linkerd /usr/local/bin/`

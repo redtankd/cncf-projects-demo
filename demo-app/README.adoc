@@ -1,0 +1,58 @@
+= Cross Compiling Rust
+
+== From Mac OS to Linux
+
+=== x86_64-unknown-linux-musl
+
+* Installing musl target
+
+`rustup target add x86_64-unknown-linux-musl`
+
+* Installing Cross Linker
+
+`brew install FiloSottile/musl-cross/musl-cross`
+
+* Setting linker in Cargo's configuration, for example `$HOME/.cargo/config` or package's `.cargo/config`
+
+```
+[target.x86_64-unknown-linux-musl]
+linker = "x86_64-linux-musl-gcc"
+```
+
+* Building your project
+
+```fish
+env TARGET_CC=x86_64-linux-musl-gcc cargo build --target x86_64-unknown-linux-musl
+```
+
+Note: if you have any C code compiled by a Rust build script, you also have to set environment variables like TARGET_CC to get it working. 
+
+Or if linker is not set in Cargo's configuration, you can
+
+`env CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER=x86_64-linux-musl-gcc TARGET_CC=x86_64-linux-musl-gcc cargo build --target x86_64-unknown-linux-musl`
+
+=== x86_64-unknown-linux-gnu
+
+* Installing GNU target
+
+`rustup target add x86_64-unknown-linux-gnu`
+
+* Installing Cross Linker
+
+```
+brew tap SergioBenitez/osxct
+brew install x86_64-unknown-linux-gnu
+```
+
+* Setting linker in Cargo's configuration, for example `$HOME/.cargo/config` or package's `.cargo/config`
+
+```
+[target.x86_64-unknown-linux-gnu]
+linker = "x86_64-unknown-linux-gnu-gcc"
+```
+
+* Building your project
+
+```fish
+env TARGET_CC=x86_64-unknown-linux-gnu-gcc cargo build --target x86_64-unknown-linux-gnu
+```

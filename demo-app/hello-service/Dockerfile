@@ -1,0 +1,14 @@
+FROM alpine
+
+EXPOSE 8000
+
+WORKDIR /root
+
+ARG APP_FILE
+COPY ${APP_FILE} app
+
+VOLUME /tmp
+
+ENV ROCKET_ADDRESS 0.0.0.0
+
+ENTRYPOINT 	["./app"]

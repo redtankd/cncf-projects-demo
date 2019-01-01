@@ -1,0 +1,57 @@
+# the reference:
+# https://kubernetes.io/docs/concepts/services-networking/service/
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#service-v1-core
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-service
+  namespace: demo
+  labels:
+    app: hello-service
+spec:
+  selector:
+    app: hello-service  # taget pods' label to match
+  type: LoadBalancer    # Exposes the service externally using a cloud provider’s load balancer. 
+  ports:
+    - port: 8000
+      targetPort: 8000  # the service's incoming port
+      name: hello-port  # or the actual port number 8000. The targets are maybe pods or external services.
+---
+# the reference:
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#deployment-v1-apps
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-service
+  namespace: demo
+  labels:
+    app: hello-service
+spec:
+  selector:
+    matchLabels:
+      app: hello-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-service
+    spec:
+      containers:
+        - name: hello-service
+          image: redtankd/hello-service:0.0.1
+          env:
+            - name: HELLO_SUB_SERVICE_HOST
+              value: $(HELLO_SUB_SERVICE_SERVICE_HOST) # hello-sub-service
+            - name:  HELLO_SUB_SERVICE_PORT
+              value: $(HELLO_SUB_SERVICE_SERVICE_PORT_HELLO_PORT) # hello-port.hello-sub-service
+          ports:
+            - containerPort: 8000
+              name: hello-port
+          readinessProbe:
+            httpGet:
+              path: /hello/test/12
+              port: hello-port
+      # initContainers:
+      #   - name: init-config-server
+      #     image: byrnedo/alpine-curl
+      #     command: ['sh', '-c', 'until [ "200" -eq $(curl --write-out %{http_code} --silent --output /dev/null http://config-server:8888/actuator/info) ];  do echo waiting for config-server; sleep 2; done']

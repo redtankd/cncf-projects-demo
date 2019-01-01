@@ -2,7 +2,7 @@
 
 == China's mirror for docker
 
-~/.docker/daemon.json
+In `~/.docker/daemon.json`, adding the mirror registry
 
 ```
 {
@@ -14,10 +14,12 @@
 }
 ```
 
-== base image
+== Base Demo
+
+A simple developing environment.
 
 ```shell
-cd docker/base
+cd base
 docker build -t redtankd/alpine-base -f alpine/Dockerfile .
 
 docker run -it --name base -h base redtankd/alpine-base fish
@@ -25,12 +27,12 @@ docker run -it --name base -h base redtankd/alpine-base fish
 docker start -i base
 ```
 
-ubuntu/Dockerfile is for Ubuntu distribution. alpine/Dockerfile is for Alpine distribution.
+`ubuntu/Dockerfile` is for Ubuntu distribution. `alpine/Dockerfile` is for Alpine distribution.
 
-== rust image
+== Rust Demo
 
 ```
-cd docker/rust
+cd rust
 docker build -t redtankd/ubuntu-rust -f ubuntu/Dockerfile .
 
 docker run -it --name rust -h rust --security-opt seccomp=unconfined -v ~/dev/git:/root/dev/git redtankd/ubuntu-rust fish

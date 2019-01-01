@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "demo-app/hello-service",
+    "demo-app/hello-sub-service"
+]
