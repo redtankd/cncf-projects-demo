@@ -4,7 +4,7 @@ services:
   - docker
 
 before_script:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  # - 
 
 script:
   # copy images from gcr.io to hub.docker.com
@@ -31,6 +31,18 @@ script:
   - docker run --rm redtankd/ubuntu-rust fish -c "cargo kcov --version"
 
 after_success:
+  - cd $TRAVIS_BUILD_DIR
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker push redtankd/ubuntu-rust;
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+
+      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
+        # if images changed, copy images from gcr.io to hub.docker.com
+        images/cp-images.sh images/images.properties;
+      fi
+
+      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
+        # if the demo for docker and rust changed, push a new image to hub.docker.com
+        docker push redtankd/ubuntu-rust;
+      fi
+      
     fi
