@@ -17,6 +17,7 @@ script:
   - docker run --rm redtankd/alpine-base fish --version
   - docker run --rm redtankd/alpine-base git --version
   - docker run --rm redtankd/alpine-base vim --version
+
   - cd $TRAVIS_BUILD_DIR/docker/rust
   - docker build -t redtankd/ubuntu-rust -f ubuntu/Dockerfile --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO .
   - docker run --rm redtankd/ubuntu-rust kcov --version
@@ -26,19 +27,19 @@ script:
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run nightly rustc --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "cargo kcov --version"
 
-after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+# after_success:
+#   - cd $TRAVIS_BUILD_DIR
+#   - if [ "$TRAVIS_BRANCH" == "master" ]; then
+#       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 
-      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
-        # if images changed, copy images from gcr.io to hub.docker.com
-        images/cp-images.sh images/images.properties;
-      fi
+#       if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
+#         # if images changed, copy images from gcr.io to hub.docker.com
+#         images/cp-images.sh images/images.properties;
+#       fi
 
-      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
-        # if the demo for docker and rust changed, push a new image to hub.docker.com
-        docker push redtankd/ubuntu-rust;
-      fi
+#       if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
+#         # if the demo for docker and rust changed, push a new image to hub.docker.com
+#         docker push redtankd/ubuntu-rust;
+#       fi
       
-    fi
+#     fi
