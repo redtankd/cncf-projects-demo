@@ -41,23 +41,24 @@ script:
 
   - cd $TRAVIS_BUILD_DIR/
   - TARGET_CC=musl-gcc cargo +nightly build --target x86_64-unknown-linux-musl
-  - docker-compose up
-  - sleep 20
+  - docker-compose up --detach
+  - sleep 30
   - test "200" -eq $(curl --write-out %{http_code} --silent --output /dev/null http://localhost:8000/hello/John/58)
   - docker-compose down
 
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  # - if [ "$TRAVIS_BRANCH" == "master" ]; then
-  #     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
-      # if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
-      #   # if images changed, copy images from gcr.io to hub.docker.com
-      #   images/cp-images.sh images/images.properties
-      # fi
+      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
+        # if images changed, copy images from gcr.io to hub.docker.com
+        images/cp-images.sh images/images.properties
+      fi
 
-      # if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
-      #   # if the demo for docker and rust changed, push a new image to hub.docker.com
-      #   docker push redtankd/ubuntu-rust
-      # fi
-    # fi
+      if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
+        # if the demo for docker and rust changed, push a new image to hub.docker.com
+        docker push redtankd/ubuntu-rust
+      fi
+    fi
+    
