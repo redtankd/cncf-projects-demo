@@ -27,8 +27,8 @@ script:
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run nightly rustc --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "cargo kcov --version"
 
-# after_success:
-#   - cd $TRAVIS_BUILD_DIR
+after_success:
+  - cd $TRAVIS_BUILD_DIR
 #   - if [ "$TRAVIS_BRANCH" == "master" ]; then
 #       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 
