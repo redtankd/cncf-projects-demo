@@ -1,5 +1,10 @@
 sudo: false
 
+language: rust
+
+rust:
+  - nightly
+
 services:
   - docker
 
