@@ -48,14 +48,14 @@ script:
 
 after_success:
   - cd $TRAVIS_BUILD_DIR
+  # if images changed, push new images to hub.docker.com
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
-        # if images changed, copy images from gcr.io to hub.docker.com
         images/cp-images.sh images/images.properties
       fi
+    fi
       if [ ! -z "`git diff --shortstat HEAD^ HEAD -- docker/rust/`" ]; then 
-        # if the demo for docker and rust changed, push a new image to hub.docker.com
         docker push redtankd/ubuntu-rust
       fi
     fi
