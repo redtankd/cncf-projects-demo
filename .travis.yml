@@ -3,13 +3,10 @@ sudo: false
 services:
   - docker
 
-before_script:
+# before_script:
   # - 
 
 script:
-  # copy images from gcr.io to hub.docker.com
-  - images/cp-images.sh images/images.properties
-
   - cd $TRAVIS_BUILD_DIR/docker/base
   # Path outside the build context is forbidden, so the path to Dockerfile is providen.
   - docker build -t redtankd/ubuntu-base -f ubuntu/Dockerfile .
