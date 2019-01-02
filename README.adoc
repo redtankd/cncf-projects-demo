@@ -14,64 +14,64 @@ CNCF is The Cloud Native Computing Foundation, which builds sustainable ecosyste
 
 * Build the Applications
 
-`env TARGET_CC=x86_64-linux-musl-gcc cargo +nightly build --target x86_64-unknown-linux-musl`
+  `env TARGET_CC=x86_64-linux-musl-gcc cargo +nightly build --target x86_64-unknown-linux-musl`
 
 * Build the images
 
-`docker-compose build`
+  `docker-compose build`
 
 * Optional: Start the Applciations in Docker
 
-`docker-compose up`
+  `docker-compose up`
 
 * Optional: Browse the Demo
 
-http://localhost:8000/hello/John/58
+  http://localhost:8000/hello/John/58
 
 * Optional: Stop the Applciations in Docker
 
-`docker-compose down`
+  `docker-compose down`
 
 * Start the Applciations in Kubernetes Cluster
 
-`kubectl create namespace demo`
-`kubectl apply -f kube-deployment`
+  `kubectl create namespace demo`
+  `kubectl apply -f kube-deployment`
 
 * Check the Applications' status 
 
-`kubectl get all --namespace demo`
+  `kubectl get all --namespace demo`
 
 * Browse the Demo
 
-http://localhost:8000/hello/John/58
+  http://localhost:8000/hello/John/58
 
 * Stop the Applciations in Kubernetes Cluster
 
-`kubectl delete -f kube-deployment`
+  `kubectl delete -f kube-deployment`
 
 * Remove the images
 
-`docker-compose down --rmi all`
+  `docker-compose down --rmi all`
 
 == Try the Demo with Linkerd 2
 
 * Inject Linkerd 2 to the Demo
 
-After Starting the Applcation in Kubernetes, then
+  After Starting the Applcation in Kubernetes, then
 
-```
-kubectl get -n demo deploy -o yaml \
-  | linkerd inject - \
-  | kubectl apply -f -
-```
+  ```
+  kubectl get -n demo deploy -o yaml \
+    | linkerd inject - \
+    | kubectl apply -f -
+  ```
 
 * Check the Applications' status 
 
-`linkerd -n demo check --proxy`
+  `linkerd -n demo check --proxy`
 
 * Explore Linkerd
 
-`linkerd dashboard`
+  `linkerd dashboard`
 
 == Others: A Demo for Docker
 
