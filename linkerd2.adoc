@@ -18,9 +18,21 @@ Referring https://linkerd.io/2/architecture/
 
 == Installing Linkerd 2 In China
 
-Linkerd's images are in grc.io, so I made mirror repository myself.
+Following https://linkerd.io/2/getting-started/
 
-Every time this repository is pushed, Linkerd 2's images are copied to hub.docker.com through Travis CI.
+Linkerd's images are in grc.io, which is unavailable in China. So We need to give our Docker registry in Step 3.
+
+```shell
+linkerd install --registry "gcr.azk8s.cn/linkerd-io" | kubectl apply -f -
+```
+
+`gcr.azk8s.cn` is a mirror in China for gcr.io. 
+
+== An old way to installing Linker 2 in China (deprecated)
+
+=== Making mirror repository
+
+You can make mirror repository youself. Every time this repository is pushed, Linkerd 2's images are copied to hub.docker.com through Travis CI.
 
 This is from link:.travis.yml[]:
 
@@ -30,10 +42,22 @@ images/cp-images.sh images/images.properties
 
 Linkerd's version is in link:images/images.properties[].
 
+Sometimes, Linkerd change the images, so you need to...
+
+=== Pulling images
+
 Before Installing Linkerd 2, you need pull images.
 
 ```
 images/pull-images.sh images/images.properties
 ```
 
-Then following https://linkerd.io/2/getting-started/ and `cp ~/.linkerd2/bin/linkerd /usr/local/bin/`
+Then following https://linkerd.io/2/getting-started/.
+
+=== Clearing images
+
+Before reinstalling new version, you could delete old docker images:
+
+```
+images/clear-images.sh images/images.properties
+```
