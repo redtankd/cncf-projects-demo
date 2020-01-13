@@ -32,12 +32,10 @@ script:
 
   - cd $TRAVIS_BUILD_DIR/docker/rust
   - docker build -t redtankd/ubuntu-rust -f ubuntu/Dockerfile --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO .
-  - docker run --rm redtankd/ubuntu-rust kcov --version
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run stable cargo --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run nightly cargo --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run stable rustc --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run nightly rustc --version"
-  - docker run --rm redtankd/ubuntu-rust fish -c "cargo kcov --version"
 
   - cd $TRAVIS_BUILD_DIR/
   - TARGET_CC=musl-gcc cargo +nightly build --target x86_64-unknown-linux-musl
