@@ -6,7 +6,7 @@ ARG USER_HOME=/root
 
 RUN apt-get update && \
     apt-get install -y --fix-missing pkg-config && \
-    apt-get install -y python-minimal g++ cmake cmake-data
+    apt-get install -y g++ cmake cmake-data
 
 # install rust
 
