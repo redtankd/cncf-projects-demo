@@ -19,7 +19,7 @@ before_script:
 script:
   - cd $TRAVIS_BUILD_DIR/docker/base
   # Path outside the build context is forbidden, so the context path is not the path of Dockerfile.
-  - docker build -t redtankd/ubuntu-base -f ubuntu/Dockerfile .
+  - docker build -t redtankd/ubuntu-base -f ubuntu/Dockerfile --build-arg ALPINE_APT_SOURCE=$ALPINE_APT_SOURCE .
   - docker run --rm redtankd/ubuntu-base fish --version
   - docker run --rm redtankd/ubuntu-base git --version
   - docker run --rm redtankd/ubuntu-base vim --version
