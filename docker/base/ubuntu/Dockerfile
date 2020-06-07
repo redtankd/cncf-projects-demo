@@ -6,7 +6,7 @@ ARG USER_HOME=/root
 
 RUN apt-get update
 RUN apt-get install -y software-properties-common
-RUN apt-add-repository ppa:fish-shell/release-2
+RUN apt-add-repository ppa:fish-shell/release-3
 RUN apt-get update
 RUN apt-get install -y fish git vim wget curl locales
 RUN export DEBIAN_FRONTEND=noninteractive; apt-get install -y tzdata
