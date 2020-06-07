@@ -36,7 +36,7 @@ script:
     docker build -t redtankd/ubuntu-rust -f ubuntu/Dockerfile \
       --build-arg RUSTUP_UPDATE_ROOT=$RUSTUP_UPDATE_ROOT \
       --build-arg RUSTUP_DIST_SERVER=$RUSTUP_DIST_SERVER \
-      --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO \ 
+      --build-arg SOURCE_CRATES_IO=$SOURCE_CRATES_IO \
       .
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run stable cargo --version"
   - docker run --rm redtankd/ubuntu-rust fish -c "rustup run nightly cargo --version"
