@@ -35,9 +35,10 @@ script:
 after_success:
   - cd $TRAVIS_BUILD_DIR
   # if images changed, push new images to hub.docker.com
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
       if [ ! -z "`git diff --shortstat HEAD^ HEAD -- images/`" ]; then 
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         images/cp-images.sh images/images.properties
       fi
     fi
