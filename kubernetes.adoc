@@ -27,7 +27,9 @@ Referring https://kubernetes.io/docs/concepts/overview/components/
 
 == Installing Kubernetes Client
 
-For Mac OS
+Docker Desktop includes a one node kubernetes cluster. 
+
+Or for Mac OS, 
 
 ```
 brew install kubectl

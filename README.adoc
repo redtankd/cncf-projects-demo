@@ -72,9 +72,3 @@ CNCF is The Cloud Native Computing Foundation, which builds sustainable ecosyste
 * Explore Linkerd
 
   `linkerd dashboard`
-
-== Others: A Demo for Docker
-
-Notice: Docker is self not a CCF project.
-
-* link:docker/README.adoc[A Demo for Docker]
